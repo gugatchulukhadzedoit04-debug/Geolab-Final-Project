@@ -6,17 +6,27 @@ import instagramLogo from "../assets/images/insta-logo.png";
 import geolabLogo from "../assets/images/geolab-text.png";
 
 const SOCIAL_LINKS = [
-  { name: "YouTube", href: "#youtube", alt: "YouTube Icon", icon: ytLogo },
-  { name: "X", href: "#x", alt: "X Icon", icon: twitterLogo },
+  {
+    name: "YouTube",
+    href: "https://www.youtube.com/user/CrytekHunt",
+    alt: "YouTube Icon",
+    icon: ytLogo,
+  },
+  {
+    name: "X",
+    href: "https://x.com/HuntShowdown",
+    alt: "X Icon",
+    icon: twitterLogo,
+  },
   {
     name: "Facebook",
-    href: "#facebook",
+    href: "https://www.facebook.com/huntshowdown/",
     alt: "Facebook Icon",
     icon: facebookLogo,
   },
   {
     name: "Instagram",
-    href: "#instagram",
+    href: "https://www.instagram.com/huntthegame/",
     alt: "Instagram Icon",
     icon: instagramLogo,
   },
@@ -52,7 +62,10 @@ const Footer = () => {
         <div className="flex flex-col md:flex-row items-center md:items-start justify-between gap-5 md:gap-8">
           {/* 1. Brand Logo Placeholder */}
           <div className="flex-shrink-0">
-            <a href="#home" className="inline-flex items-center">
+            <a
+              href="https://geolab.edu.ge/en/"
+              className="inline-flex items-center"
+            >
               <img
                 src={geolabLogo}
                 alt="Geolab Logo"
@@ -72,6 +85,8 @@ const Footer = () => {
                 <a
                   key={social.name}
                   href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   aria-label={social.name}
                   className="p-2 rounded-md bg-zinc-900/80 hover:bg-zinc-700 transition-colors cursor-pointer"
                 >
