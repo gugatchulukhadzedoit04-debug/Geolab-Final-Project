@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Card from "../components/Card";
 import { useLanguage } from "../context/LanguageContext";
+import { HOME_HIGHLIGHT_ITEMS, BUNDLE_ITEMS } from "../data/storeItems";
+import { useCart } from "../context/CartContext";
 
 const HOME_LABELS = {
   en: {
@@ -10,6 +12,7 @@ const HOME_LABELS = {
     bundles: "Bundles",
     exploreMore: "Explore more options",
     displateShop: "Displate Shop",
+    dismiss: "Dismiss",
   },
   ka: {
     shopNow: "იყიდე ახლავე",
@@ -17,6 +20,7 @@ const HOME_LABELS = {
     bundles: "ნაკრებები",
     exploreMore: "მეტი ვარიანტის ნახვა",
     displateShop: "Displate მაღაზია",
+    dismiss: "დახურვა",
   },
 };
 
@@ -48,27 +52,16 @@ const HERO_SLIDES = [
   },
 ];
 
-// Temporary placeholder arrays until you move card data into dedicated files
-const STORE_HIGHLIGHTS = [
-  { id: "hl-1", title: "Highlight Item 1", price: "$29.99", image: "" },
-  { id: "hl-2", title: "Highlight Item 2", price: "$39.99", image: "" },
-  { id: "hl-3", title: "Highlight Item 3", price: "$19.99", image: "" },
-  { id: "hl-4", title: "Highlight Item 4", price: "$49.99", image: "" },
-];
-
-const BUNDLE_ITEMS = [
-  { id: "bnd-1", title: "Bundle Pack 1", price: "$59.99", image: "" },
-  { id: "bnd-2", title: "Bundle Pack 2", price: "$74.99", image: "" },
-  { id: "bnd-3", title: "Bundle Pack 3", price: "$44.99", image: "" },
-  { id: "bnd-4", title: "Bundle Pack 4", price: "$89.99", image: "" },
-];
-
 const DISPLATE_URL = "https://displate.com/";
 
 const HomePage = () => {
   const { lang } = useLanguage();
   const t = HOME_LABELS[lang];
+  const navigate = useNavigate();
+  const { addToCart } = useCart();
+
   const [activeSlide, setActiveSlide] = useState(0);
+  const [notice, setNotice] = useState("");
   const currentSlide = HERO_SLIDES[activeSlide];
 
   useEffect(() => {
@@ -78,6 +71,19 @@ const HomePage = () => {
 
     return () => clearInterval(interval);
   }, []);
+
+  const handleBuyNow = (item) => {
+    navigate("/account", { state: { buyNowItem: item } });
+  };
+
+  const handleAddToCart = (item) => {
+    addToCart(item);
+    setNotice(
+      lang === "ka"
+        ? `"${item.title}" დაემატა კალათაში.`
+        : `Added "${item.title}" to cart.`,
+    );
+  };
 
   return (
     <main className="w-full bg-zinc-950 text-zinc-100 pb-16">
@@ -146,6 +152,22 @@ const HomePage = () => {
 
       {/* Responsive Container: Phone full width, Tablet ~84%, Desktop ~80% */}
       <div className="w-full px-4 sm:px-6 md:w-[84%] md:px-0 lg:w-[80%] mx-auto space-y-14 mt-12">
+        {notice && (
+          <div
+            role="status"
+            className="px-4 py-3 rounded-md bg-[#27272A] border border-indigo-400/60 text-sm text-zinc-100 flex items-center justify-between"
+          >
+            <span>{notice}</span>
+            <button
+              type="button"
+              onClick={() => setNotice("")}
+              className="text-xs uppercase tracking-wider text-indigo-400 hover:text-indigo-300 cursor-pointer"
+            >
+              {t.dismiss}
+            </button>
+          </div>
+        )}
+
         {/* Section #2: Store Highlights */}
         <section
           aria-labelledby="store-highlights-heading"
@@ -158,9 +180,14 @@ const HomePage = () => {
             {t.storeHighlights}
           </h2>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 overflow-hidden">
-            {STORE_HIGHLIGHTS.map((item) => (
-              <Card key={item.id} item={item} />
+          <div className="flex flex-wrap justify-center gap-5">
+            {HOME_HIGHLIGHT_ITEMS.map((item) => (
+              <Card
+                key={item.id}
+                item={item}
+                onBuyNow={handleBuyNow}
+                onAddToCart={handleAddToCart}
+              />
             ))}
           </div>
 
@@ -186,9 +213,14 @@ const HomePage = () => {
             {t.bundles}
           </h2>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 overflow-hidden">
+          <div className="flex flex-wrap justify-center gap-5">
             {BUNDLE_ITEMS.map((item) => (
-              <Card key={item.id} item={item} />
+              <Card
+                key={item.id}
+                item={item}
+                onBuyNow={handleBuyNow}
+                onAddToCart={handleAddToCart}
+              />
             ))}
           </div>
 

@@ -46,7 +46,7 @@ const Card = ({ item, onBuyNow, onAddToCart }) => {
   };
 
   return (
-    <article className="group flex flex-col justify-between bg-[#121214] border border-zinc-800 hover:border-indigo-400/70 rounded-md overflow-hidden transition-colors">
+    <article className="group w-full sm:w-[calc(50%-0.625rem)] lg:w-[calc(25%-0.9375rem)] flex flex-col justify-between bg-[#121214] border border-zinc-800 hover:border-indigo-400/70 rounded-md overflow-hidden transition-colors">
       {/* Image Area + Hover Overlay (Title & Price appear over the picture on hover) */}
       <div className="relative aspect-[16/10] w-full bg-zinc-900 overflow-hidden flex items-center justify-center">
         {imgSrc ? (

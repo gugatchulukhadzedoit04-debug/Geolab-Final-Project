@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Card from "../components/Card";
 import { useLanguage } from "../context/LanguageContext";
+import { GAMES_ITEMS, RECOMMENDED_DLC_ITEMS } from "../data/storeItems";
+import { useCart } from "../context/CartContext";
 
 const assetModules = import.meta.glob(
   "../assets/images/*.{png,jpg,jpeg,webp,avif}",
@@ -21,17 +23,17 @@ const IMAGE_MAP = Object.entries(assetModules).reduce((acc, [path, url]) => {
 
 const GAMES_LABELS = {
   en: {
-    heroEyebrow: "Crytek Store",
+    heroTitle: "Our Games",
     heroSubtitle:
-      "Explore full titles and featured Hunt: Showdown 1896 add-ons",
+      "Action-packed AAA games made on the most powerful game development platform",
     gamesHeading: "Games",
     recommendationsHeading: "Our Recommendations",
     dismiss: "Dismiss",
   },
   ka: {
-    heroEyebrow: "Crytek მაღაზია",
+    heroTitle: "ჩვენი თამაშები",
     heroSubtitle:
-      "აღმოაჩინე თამაშები და Hunt: Showdown 1896-ის გამორჩეული დამატებები",
+      "მძაფრსიუჟეტიანი AAA თამაშები, შექმნილი თამაშების განვითარების უძლიერეს პლატფორმაზე",
     gamesHeading: "თამაშები",
     recommendationsHeading: "ჩვენი რეკომენდაციები",
     dismiss: "დახურვა",
@@ -40,75 +42,6 @@ const GAMES_LABELS = {
 
 // Optional filename key in `src/assets/images/` (e.g. "games-hero" -> games-hero.jpg)
 const HERO_IMAGE_KEY = "games-hero";
-
-const CRYTEK_GAMES = [
-  {
-    id: "game-hunt-1896",
-    title: "Hunt: Showdown 1896",
-    price: "$29.99",
-    image: "hunt-1896",
-    badge: "Game",
-  },
-  {
-    id: "game-crysis-remastered",
-    title: "Crysis Remastered",
-    price: "$29.99",
-    image: "crysis-remastered",
-    badge: "Game",
-  },
-  {
-    id: "game-crysis-2-remastered",
-    title: "Crysis 2 Remastered",
-    price: "$29.99",
-    image: "crysis-2-remastered",
-    badge: "Game",
-  },
-  {
-    id: "game-crysis-3-remastered",
-    title: "Crysis 3 Remastered",
-    price: "$29.99",
-    image: "crysis-3-remastered",
-    badge: "Game",
-  },
-  {
-    id: "game-ryse-son-of-rome",
-    title: "Ryse: Son of Rome",
-    price: "$9.99",
-    image: "ryse-son-of-rome",
-    badge: "Game",
-  },
-  {
-    id: "game-robinson-the-journey",
-    title: "Robinson: The Journey",
-    price: "$19.99",
-    image: "robinson-the-journey",
-    badge: "Game",
-  },
-];
-
-const RECOMMENDED_HUNT_DLC = [
-  {
-    id: "dlc-bound-by-blood",
-    title: "Hunt: Showdown 1896 – Bound by Blood",
-    price: "$9.99",
-    image: "dlc-bound-by-blood",
-    badge: "DLC",
-  },
-  {
-    id: "dlc-sage-of-joseon",
-    title: "Hunt: Showdown 1896 – Sage of Joseon",
-    price: "$9.99",
-    image: "dlc-sage-of-joseon",
-    badge: "DLC",
-  },
-  {
-    id: "dlc-cry-of-the-caged-bird",
-    title: "Hunt: Showdown 1896 - Cry of the Caged Bird",
-    price: "$9.99",
-    image: "dlc-cry-of-the-caged-bird",
-    badge: "DLC",
-  },
-];
 
 const GamesPage = () => {
   const { lang } = useLanguage();
@@ -121,45 +54,51 @@ const GamesPage = () => {
     navigate("/account", { state: { buyNowItem: item } });
   };
 
+  const { addToCart } = useCart();
+
   const handleAddToCart = (item) => {
-    setNotice(`Added "${item.title}" to cart.`);
+    addToCart(item);
+    setNotice(
+      lang === "ka"
+        ? `"${item.title}" დაემატა კალათაში.`
+        : `Added "${item.title}" to cart.`,
+    );
   };
 
   return (
     <main className="w-full bg-zinc-950 text-zinc-100 pb-16">
       {/* Compact Page Hero Banner */}
-      <section
-        aria-label="Games Page Header Banner"
-        className="relative w-full h-[220px] sm:h-[260px] bg-zinc-900 border-b border-zinc-800 overflow-hidden flex items-center justify-center"
-      >
-        {heroImage ? (
-          <img
-            src={heroImage}
-            alt="Crytek Games Banner"
-            className="w-full h-full object-cover"
-          />
-        ) : (
-          <div className="w-full h-full bg-gradient-to-r from-zinc-950 via-[#27272A] to-zinc-950" />
-        )}
+      <div className="w-full px-4 sm:px-6 md:w-[84%] md:px-0 lg:w-[80%] mx-auto pt-8">
+        <section
+          aria-label="Games Page Header Banner"
+          className="relative w-full h-[225px] bg-zinc-900 border border-zinc-800 rounded-md overflow-hidden flex items-center justify-center"
+        >
+          {heroImage ? (
+            <img
+              src={heroImage}
+              alt="Crytek Games Banner"
+              className="w-full h-full object-cover"
+            />
+          ) : (
+            <div className="w-full h-full bg-gradient-to-r from-zinc-950 via-[#27272A] to-zinc-950" />
+          )}
 
-        {/* Dark gradient scrim for crisp text contrast */}
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-zinc-950/90 via-black/55 to-black/35" />
+          {/* Dark gradient scrim for crisp text contrast */}
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-zinc-950/90 via-black/55 to-black/35" />
 
-        <div className="relative z-10 w-full px-4 sm:px-6 md:w-[84%] md:px-0 lg:w-[80%] mx-auto text-center space-y-2">
-          <p className="text-[11px] sm:text-xs font-bold tracking-[0.2em] uppercase text-indigo-400">
-            {t.heroEyebrow}
-          </p>
-          <h1
-            id="games-page-heading"
-            className="text-2xl sm:text-4xl font-bold tracking-wider uppercase text-zinc-100"
-          >
-            {t.gamesHeading}
-          </h1>
-          <p className="max-w-2xl mx-auto text-xs sm:text-sm text-zinc-300">
-            {t.heroSubtitle}
-          </p>
-        </div>
-      </section>
+          <div className="relative z-10 px-4 sm:px-6 text-center space-y-2.5">
+            <h1
+              id="games-page-heading"
+              className="text-2xl sm:text-4xl font-bold tracking-wider uppercase text-zinc-100"
+            >
+              {t.heroTitle}
+            </h1>
+            <p className="max-w-2xl mx-auto text-xs sm:text-sm text-zinc-300 leading-relaxed">
+              {t.heroSubtitle}
+            </p>
+          </div>
+        </section>
+      </div>
 
       <div className="w-full px-4 sm:px-6 md:w-[84%] md:px-0 lg:w-[80%] mx-auto space-y-14 mt-12">
         {notice && (
@@ -187,8 +126,8 @@ const GamesPage = () => {
             {t.gamesHeading}
           </h2>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {CRYTEK_GAMES.map((game) => (
+          <div className="flex flex-wrap justify-center gap-5">
+            {GAMES_ITEMS.map((game) => (
               <Card
                 key={game.id}
                 item={game}
@@ -211,8 +150,8 @@ const GamesPage = () => {
             {t.recommendationsHeading}
           </h2>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {RECOMMENDED_HUNT_DLC.map((dlc) => (
+          <div className="flex flex-wrap justify-center gap-5">
+            {RECOMMENDED_DLC_ITEMS.map((dlc) => (
               <Card
                 key={dlc.id}
                 item={dlc}
