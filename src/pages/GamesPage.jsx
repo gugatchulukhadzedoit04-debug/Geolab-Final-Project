@@ -40,7 +40,6 @@ const GAMES_LABELS = {
   },
 };
 
-// Optional filename key in `src/assets/images/` (e.g. "games-hero" -> games-hero.jpg)
 const HERO_IMAGE_KEY = "games-hero";
 
 const GamesPage = () => {
@@ -67,23 +66,22 @@ const GamesPage = () => {
 
   return (
     <main className="w-full bg-zinc-950 text-zinc-100 pb-16">
-      {/* Compact Page Hero Banner */}
+      {/* Hero Banner */}
       <div className="w-full px-4 sm:px-6 md:w-[84%] md:px-0 lg:w-[80%] mx-auto pt-8">
         <section
-          aria-label="Games Page Header Banner"
+          aria-labelledby="games-page-heading"
           className="relative w-full h-[225px] bg-zinc-900 border border-zinc-800 rounded-md overflow-hidden flex items-center justify-center"
         >
           {heroImage ? (
             <img
               src={heroImage}
               alt="Crytek Games Banner"
-              className="w-full h-full object-cover"
+              className="absolute inset-0 w-full h-full object-cover object-center"
             />
           ) : (
-            <div className="w-full h-full bg-gradient-to-r from-zinc-950 via-[#27272A] to-zinc-950" />
+            <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-zinc-950 via-[#27272A] to-zinc-950" />
           )}
 
-          {/* Dark gradient scrim for crisp text contrast */}
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-zinc-950/90 via-black/55 to-black/35" />
 
           <div className="relative z-10 px-4 sm:px-6 text-center space-y-2.5">
@@ -117,7 +115,7 @@ const GamesPage = () => {
           </div>
         )}
 
-        {/* Section #1: 6 Crytek Games */}
+        {/* Section #1: Crytek Games */}
         <section aria-labelledby="games-grid-heading" className="flex flex-col">
           <h2
             id="games-grid-heading"
@@ -138,7 +136,7 @@ const GamesPage = () => {
           </div>
         </section>
 
-        {/* Section #2: Our Recommendations (3 Hunt: Showdown 1896 DLC cards) */}
+        {/* Section #2: Our Recommendations */}
         <section
           aria-labelledby="our-recommendations-heading"
           className="flex flex-col"

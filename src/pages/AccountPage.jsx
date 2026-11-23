@@ -269,7 +269,7 @@ const AccountPage = () => {
             </div>
           )}
 
-          {/* Email Field — Persistent Label on Top, No Inner Placeholder */}
+          {/* Email */}
           <div className="space-y-1.5">
             <label
               htmlFor="account-email"
@@ -293,7 +293,7 @@ const AccountPage = () => {
             />
           </div>
 
-          {/* Password Field — Persistent Label on Top + Lucide Eye Toggle */}
+          {/* Password  */}
           <div className="space-y-1.5">
             <label
               htmlFor="account-password"
@@ -338,7 +338,7 @@ const AccountPage = () => {
             </div>
           </div>
 
-          {/* Terms and Conditions Checkbox (SIGN UP only) */}
+          {/* Terms and Conditions Checkbox */}
           {activeTab === "signup" && (
             <label className="flex items-start gap-2.5 cursor-pointer select-none pt-1">
               <input
@@ -367,7 +367,7 @@ const AccountPage = () => {
             {activeTab === "login" ? t.loginBtn : t.createAccountBtn}
           </button>
 
-          {/* Forgot Password Link (LOG IN only) */}
+          {/* Forgot Password Link */}
           {activeTab === "login" && (
             <div className="text-center pt-1">
               <button

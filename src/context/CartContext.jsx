@@ -18,9 +18,7 @@ export const CartProvider = ({ children }) => {
   useEffect(() => {
     try {
       localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cartItems));
-    } catch {
-      // Ignore storage quota errors in demo mode
-    }
+    } catch {}
   }, [cartItems]);
 
   useEffect(() => {

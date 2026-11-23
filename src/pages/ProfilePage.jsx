@@ -14,6 +14,7 @@ import { useLanguage } from "../context/LanguageContext";
 const USERS_STORAGE_KEY = "crytek_users";
 const CURRENT_USER_STORAGE_KEY = "crytek_current_user";
 
+//. Languages
 const PROFILE_LABELS = {
   en: {
     navTitle: "My Account",
@@ -23,14 +24,12 @@ const PROFILE_LABELS = {
     tabSupport: "Contact Our Support",
     btnLogout: "Log Out",
 
-    // 1. Account Information
     accountHeading: "Account Information",
     emailLabel: "EMAIL",
     dobLabel: "DATE OF BIRTH",
     saveProfileBtn: "SAVE CHANGES",
     profileSaved: "Account information updated.",
 
-    // 2. Payment Information
     paymentHeading: "Payment Information",
     cardNumberLabel: "CREDIT CARD NUMBER",
     cardNameLabel: "NAME ON THE CREDIT CARD",
@@ -39,13 +38,11 @@ const PROFILE_LABELS = {
     savedCardsHeading: "Saved Payment Methods",
     errCardFields: "Please enter both Credit Card Number and Name on the Card.",
 
-    // 3. Purchase History
     historyHeading: "Purchase History",
     emptyHistory: "You haven't made any purchases yet.",
     purchasedOn: "Purchased on",
     statusCompleted: "Completed",
 
-    // 4. Contact Support
     supportHeading: "Contact Our Support",
     supportEmailLabel: "SUPPORT EMAIL",
     supportMessageLabel: "YOUR MESSAGE",
@@ -61,14 +58,12 @@ const PROFILE_LABELS = {
     tabSupport: "მხარდაჭერასთან დაკავშირება",
     btnLogout: "გასვლა",
 
-    // 1. Account Information
     accountHeading: "ანგარიშის ინფორმაცია",
     emailLabel: "ელ-ფოსტა",
     dobLabel: "დაბადების თარიღი",
     saveProfileBtn: "შენახვა",
     profileSaved: "ანგარიშის ინფორმაცია განახლდა.",
 
-    // 2. Payment Information
     paymentHeading: "გადახდის ინფორმაცია",
     cardNumberLabel: "საკრედიტო ბარათის ნომერი",
     cardNameLabel: "მფლობელის სახელი ბარათზე",
@@ -77,13 +72,11 @@ const PROFILE_LABELS = {
     savedCardsHeading: "შენახული ბარათები",
     errCardFields: "გთხოვთ შეავსოთ ბარათის ნომერი და მფლობელის სახელი.",
 
-    // 3. Purchase History
     historyHeading: "შესყიდვების ისტორია",
     emptyHistory: "თქვენ ჯერ არ გაქვთ განხორციელებული შესყიდვები.",
     purchasedOn: "შეძენის თარიღი",
     statusCompleted: "დასრულებული",
 
-    // 4. Contact Support
     supportHeading: "მხარდაჭერასთან დაკავშირება",
     supportEmailLabel: "მხარდაჭერის ელ-ფოსტა",
     supportMessageLabel: "თქვენი შეტყობინება",
@@ -123,7 +116,7 @@ const ProfilePage = () => {
   const t = PROFILE_LABELS[lang];
   const navigate = useNavigate();
 
-  const [activeSection, setActiveSection] = useState("account"); // "account" | "payment" | "history" | "support"
+  const [activeSection, setActiveSection] = useState("account");
   const [userRecord, setUserRecord] = useState(null);
 
   // Account Info state
@@ -199,7 +192,7 @@ const ProfilePage = () => {
     }
   }, [activeSection, refreshUserRecord]);
 
-  // Helper to persist updates back into `crytek_users` in localStorage
+  //  `crytek_users` in localStorage
   const persistUserUpdates = (updates) => {
     if (!userRecord?.email) return;
 
@@ -222,7 +215,7 @@ const ProfilePage = () => {
     }
   };
 
-  // 1. Save Date of Birth
+  // Date of Birth
   const handleSaveAccountInfo = (e) => {
     e.preventDefault();
     persistUserUpdates({ dob });
@@ -230,7 +223,7 @@ const ProfilePage = () => {
     setTimeout(() => setAccountSavedMsg(""), 3000);
   };
 
-  // 2. Add Payment Method
+  // Add Payment Method
   const handleAddPaymentMethod = (e) => {
     e.preventDefault();
     setPaymentError("");
@@ -263,7 +256,7 @@ const ProfilePage = () => {
     setShowCardForm(false);
   };
 
-  // 4. Contact Support Submit
+  // Contact Support Submit
   const handleSupportSubmit = (e) => {
     e.preventDefault();
     if (!supportMessage.trim()) {
@@ -301,7 +294,6 @@ const ProfilePage = () => {
     <main className="w-full min-h-[calc(100vh-160px)] bg-zinc-950 text-zinc-100 py-10 pb-16">
       <div className="w-full px-4 sm:px-6 md:w-[84%] md:px-0 lg:w-[80%] mx-auto">
         <div className="flex flex-col md:flex-row gap-6 lg:gap-8 items-start">
-          {/* Persistent Left Navigation Sidebar */}
           <aside
             aria-label="Profile Navigation"
             className="w-full md:w-64 lg:w-72 shrink-0 bg-[#121214] border border-zinc-800 rounded-md overflow-hidden"
@@ -485,7 +477,7 @@ const ProfilePage = () => {
                       ))}
                     </div>
 
-                    {/* Button below saved cards to open form again */}
+                    {/* Button below saved cards */}
                     {!showCardForm && (
                       <button
                         type="button"

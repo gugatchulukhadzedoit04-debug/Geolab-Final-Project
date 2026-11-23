@@ -289,9 +289,7 @@ const CartPage = () => {
     try {
       localStorage.setItem(USERS_STORAGE_KEY, JSON.stringify(updatedUsers));
       window.dispatchEvent(new Event("auth-change"));
-    } catch {
-      // Ignore storage quota errors in demo mode
-    }
+    } catch {}
 
     if (allSelected) {
       clearCart();
@@ -358,7 +356,7 @@ const CartPage = () => {
                     key={item.id}
                     className="flex items-center gap-3 sm:gap-4"
                   >
-                    {/* Selection Checkbox Outside the Card on the Left */}
+                    {/* Selection Checkbox */}
                     <input
                       type="checkbox"
                       checked={isChecked}
@@ -367,7 +365,6 @@ const CartPage = () => {
                       className="w-4 h-4 sm:w-5 sm:h-5 rounded border-zinc-600 bg-[#27272A] accent-indigo-500 cursor-pointer shrink-0"
                     />
 
-                    {/* Horizontal Cart Card: Image Left, Info + Remove Right */}
                     <article
                       className={`flex-1 flex flex-row items-stretch bg-[#121214] border rounded-md overflow-hidden transition-colors ${
                         isChecked
@@ -375,7 +372,6 @@ const CartPage = () => {
                           : "border-zinc-800 hover:border-zinc-700"
                       }`}
                     >
-                      {/* Left Side: Item Image */}
                       <div className="w-28 sm:w-44 md:w-52 shrink-0 bg-zinc-900 flex items-center justify-center overflow-hidden">
                         {imgSrc ? (
                           <img
@@ -390,7 +386,7 @@ const CartPage = () => {
                         )}
                       </div>
 
-                      {/* Right Side: Title, Price, and Remove Button */}
+                      {/* Title, Price and Remove Button */}
                       <div className="flex-1 p-3.5 sm:p-5 bg-[#27272A]/40 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                         <div className="space-y-1 min-w-0">
                           {item.badge && (
@@ -422,7 +418,7 @@ const CartPage = () => {
               })}
             </div>
 
-            {/* Select All (Left) & Dynamic Remove Selected / Remove All (Right) */}
+            {/* Select All  & Dynamic Remove Selected / Remove All Button */}
             <div className="pt-1 flex items-center justify-between gap-4">
               <label className="inline-flex items-center gap-2.5 cursor-pointer select-none">
                 <input
@@ -465,7 +461,7 @@ const CartPage = () => {
               </div>
             )}
 
-            {/* Selected Count + Total Price & Side-by-Side Action Buttons */}
+            {/* Selected Count + Total Price */}
             <div className="bg-[#121214] border border-zinc-800 rounded-md p-5 sm:p-6 space-y-5">
               <div className="flex flex-wrap items-center justify-between gap-4 border-b border-zinc-800 pb-4">
                 <span className="text-xs sm:text-sm uppercase tracking-wider text-zinc-400">
@@ -504,7 +500,7 @@ const CartPage = () => {
         )}
       </div>
 
-      {/* Payment Pop-Up Modal */}
+      {/* Payment Pop-Up */}
       {isPaymentOpen && (
         <div
           role="dialog"
@@ -616,7 +612,7 @@ const CartPage = () => {
               </div>
             )}
 
-            {/* Action Buttons: Proceed with Payment & Return to Store */}
+            {/* Proceed with Payment & Return to Store */}
             <div className="flex flex-col sm:flex-row items-stretch gap-3 pt-1">
               <button
                 type="button"

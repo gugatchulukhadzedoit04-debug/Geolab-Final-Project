@@ -46,9 +46,9 @@ const Card = ({ item, onBuyNow, onAddToCart }) => {
   };
 
   return (
-    <article className="group w-full sm:w-[calc(50%-0.625rem)] lg:w-[calc(25%-0.9375rem)] flex flex-col justify-between bg-[#121214] border border-zinc-800 hover:border-indigo-400/70 rounded-md overflow-hidden transition-colors">
-      {/* Image Area + Hover Overlay (Title & Price appear over the picture on hover) */}
-      <div className="relative aspect-[16/10] w-full bg-zinc-900 overflow-hidden flex items-center justify-center">
+    <article className="group w-full sm:w-[calc(50%-0.625rem)] lg:w-[calc(25%-0.9375rem)] h-[432px] flex flex-col justify-between bg-[#121214] border border-zinc-800 hover:border-indigo-400/70 rounded-md overflow-hidden transition-colors">
+      {/* Image + Hover Overlay */}
+      <div className="relative flex-1 min-h-0 w-full bg-zinc-900 overflow-hidden flex items-center justify-center">
         {imgSrc ? (
           <img
             src={imgSrc}
@@ -61,7 +61,7 @@ const Card = ({ item, onBuyNow, onAddToCart }) => {
           </span>
         )}
 
-        {/* Hover Overlay over the picture */}
+        {/* Hover on picture */}
         <div
           className="
             pointer-events-none absolute inset-0
@@ -86,8 +86,8 @@ const Card = ({ item, onBuyNow, onAddToCart }) => {
         </div>
       </div>
 
-      {/* Bottom Action Buttons: Buy Now on top, Add to Cart below */}
-      <div className="p-3.5 bg-[#27272A]/60 border-t border-zinc-800/90 flex flex-col gap-2">
+      {/* Bottom Buttons: Buy Now, Add to Cart */}
+      <div className="shrink-0 p-3.5 bg-[#27272A]/60 border-t border-zinc-800/90 flex flex-col gap-2">
         <button
           type="button"
           onClick={handleBuyNow}

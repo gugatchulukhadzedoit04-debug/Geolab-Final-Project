@@ -5,6 +5,22 @@ import { useLanguage } from "../context/LanguageContext";
 import { BUNDLE_ITEMS } from "../data/storeItems";
 import { useCart } from "../context/CartContext";
 
+const assetModules = import.meta.glob(
+  "../assets/images/*.{png,jpg,jpeg,webp,avif}",
+  { eager: true, import: "default" },
+);
+
+const IMAGE_MAP = Object.entries(assetModules).reduce((acc, [path, url]) => {
+  const fileName = path
+    .split("/")
+    .pop()
+    ?.replace(/\.[^/.]+$/, "");
+  if (fileName) {
+    acc[fileName] = url;
+  }
+  return acc;
+}, {});
+
 const SPECIAL_OFFERS_LABELS = {
   en: {
     heroTitle: "SPECIAL OFFERS",
@@ -22,11 +38,14 @@ const SPECIAL_OFFERS_LABELS = {
   },
 };
 
+const HERO_IMAGE_KEY = "special-offers-hero";
+
 const SpecialOffersPage = () => {
   const { lang } = useLanguage();
   const t = SPECIAL_OFFERS_LABELS[lang];
   const navigate = useNavigate();
   const [notice, setNotice] = useState("");
+  const heroImage = IMAGE_MAP[HERO_IMAGE_KEY] || "";
 
   const handleBuyNow = (item) => {
     navigate("/account", { state: { buyNowItem: item } });
@@ -45,20 +64,29 @@ const SpecialOffersPage = () => {
 
   return (
     <main className="w-full bg-zinc-950 text-zinc-100 pb-16">
-      {/* Compact Page Hero Banner (80% desktop width, 225px height) */}
+      {/* Hero Banner */}
       <div className="w-full px-4 sm:px-6 md:w-[84%] md:px-0 lg:w-[80%] mx-auto pt-8">
         <section
-          aria-label="Special Offers Page Header Banner"
+          aria-labelledby="special-offers-banner-heading"
           className="relative w-full h-[225px] bg-zinc-900 border border-zinc-800 rounded-md overflow-hidden flex items-center justify-center"
         >
-          {/* Empty Hero Image Placeholder — swap with <img> when ready */}
-          <div className="w-full h-full bg-gradient-to-r from-zinc-950 via-[#27272A] to-zinc-950" />
+          {heroImage ? (
+            <img
+              src={heroImage}
+              alt="Crytek Special Offers Banner"
+              className="absolute inset-0 w-full h-full object-cover object-center"
+            />
+          ) : (
+            <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-zinc-950 via-[#27272A] to-zinc-950" />
+          )}
 
-          {/* Dark gradient scrim for text contrast */}
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-zinc-950/90 via-black/55 to-black/35" />
 
           <div className="relative z-10 px-4 sm:px-6 text-center space-y-2.5">
-            <h1 className="text-2xl sm:text-4xl font-bold tracking-wider uppercase text-zinc-100">
+            <h1
+              id="special-offers-banner-heading"
+              className="text-2xl sm:text-4xl font-bold tracking-wider uppercase text-zinc-100"
+            >
               {t.heroTitle}
             </h1>
             <p className="max-w-2xl mx-auto text-xs sm:text-sm text-zinc-300 leading-relaxed">

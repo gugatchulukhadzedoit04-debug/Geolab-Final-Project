@@ -232,7 +232,7 @@ const Header = () => {
           </a>
         </div>
 
-        {/* Center Navigation */}
+        {/* Navigation */}
         <nav className="hidden md:flex items-center space-x-8">
           {NAV_ITEMS.map((item) => (
             <NavLink
@@ -252,7 +252,6 @@ const Header = () => {
           ))}
         </nav>
 
-        {/* Action Icons */}
         <div className="flex items-center space-x-3 sm:space-x-5">
           {/* Live Search Icon + Pop-Up */}
           <div ref={searchContainerRef} className="relative">
@@ -309,7 +308,7 @@ const Header = () => {
                   </div>
                 </div>
 
-                {/* Single Matching Result */}
+                {/* Single Match */}
                 {trimmedQuery && (
                   <div className="pt-1 border-t border-zinc-800">
                     {singleMatch ? (
@@ -492,7 +491,7 @@ const Header = () => {
             </NavLink>
           ))}
 
-          {/* Account / Profile Options Inside Burger Menu */}
+          {/* Account / Profile Options In Burger Menu */}
           <div className="border-t border-zinc-800/80 mt-2 pt-2 space-y-1">
             {currentUser ? (
               <>

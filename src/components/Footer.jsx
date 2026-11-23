@@ -58,9 +58,7 @@ const Footer = () => {
       className="w-full max-h-[400px] md:max-h-none bg-[#27272A] text-zinc-300 border-t border-zinc-700/80"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-10 flex flex-col justify-between gap-5 md:gap-8">
-        {/* Upper Section: Logo + Social Icons + Legal Links */}
         <div className="flex flex-col md:flex-row items-center md:items-start justify-between gap-5 md:gap-8">
-          {/* 1. Brand Logo Placeholder */}
           <div className="flex-shrink-0">
             <a
               href="https://geolab.edu.ge/en/"
@@ -74,9 +72,7 @@ const Footer = () => {
             </a>
           </div>
 
-          {/* Right Column (Desktop) / Stacked Section (Compact Viewport) */}
           <div className="flex flex-col items-center md:items-end gap-4">
-            {/* 2. Social Icons Bar */}
             <nav
               aria-label="Social Media Links"
               className="flex items-center gap-4"
@@ -99,7 +95,6 @@ const Footer = () => {
               ))}
             </nav>
 
-            {/* 3. Policy & Legal Links */}
             <nav
               aria-label="Legal Navigation"
               className="flex flex-wrap items-center justify-center md:justify-end gap-x-5 gap-y-2 text-sm tracking-wider uppercase text-zinc-200"
@@ -119,7 +114,6 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* 4. Bottom Copyright & Trademarks */}
         <div className="pt-4 border-t border-zinc-700/70 text-center text-xs sm:text-sm leading-relaxed text-zinc-400 space-y-1">
           <p>© 2026 Crytek GmbH. All rights reserved.</p>
           <p>
